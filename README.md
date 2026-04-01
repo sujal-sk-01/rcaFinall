@@ -83,3 +83,9 @@ c = RCAAgentEnvClient("http://127.0.0.1:8000")
 print(c.tasks())
 print(c.reset("easy"))
 ```
+
+## Use Cases
+- AI Agent Evaluation
+- Research in Autonomous Debugging
+- Hackathon Projects
+- LLM + Systems Integration Experiments
