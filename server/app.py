@@ -22,6 +22,7 @@ if sys.platform == "win32":
 logging.basicConfig(level=logging.INFO)
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
 from models import Action, EnvironmentState, Observation, RCAReport, ServiceMetrics
@@ -89,13 +90,11 @@ def startup_event() -> None:
     )
 
 
-@app.get("/")
-def root() -> dict:
-    return {
-        "service": "RCAAgent-Env",
-        "docs": "/docs",
-        "openapi": "/openapi.json",
-    }
+@app.get("/", response_class=HTMLResponse)
+def root() -> HTMLResponse:
+    ui_path = _PROJECT_ROOT / "server" / "ui.html"
+    html = ui_path.read_text(encoding="utf-8")
+    return HTMLResponse(content=html)
 
 
 class TaskMeta(BaseModel):
